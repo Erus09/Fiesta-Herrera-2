@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunión Familiar Herrera 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:ital,wght@0,400;0,600;0,800;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --marigold: #F5A623;
+    --magenta: #E84E7A;
+    --turquoise: #1FA6A0;
+    --cactus: #4C9F5B;
+    --cielo: #4A8FE0;
+    --crema: #FFF6E4;
+    --papel: #FFFBF2;
+    --ciruela: #401B33;
+    --ciruela-suave: #6B3A55;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(245,166,35,0.25), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(31,166,160,0.25), transparent 45%),
+      var(--crema);
+    color: var(--ciruela);
+    padding: 0 0 40px 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .page {
+    max-width: 520px;
+    width: 100%;
+  }
+
+  /* ---------- PAPEL PICADO BANNER ---------- */
+  .banderin-fila {
+    display: flex;
+    justify-content: center;
+    padding: 14px 6px 0 6px;
+    background: var(--ciruela);
+  }
+  .pico {
+    width: 15%;
+    aspect-ratio: 5 / 6;
+    margin: 0 1px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    position: relative;
+  }
+  .pico::before {
+    content: "";
+    position: absolute;
+    inset: 18% 28% 45% 28%;
+    background: inherit;
+    filter: brightness(1.5);
+    -webkit-mask: radial-gradient(circle at 50% 50%, transparent 55%, #000 56%);
+    mask: radial-gradient(circle at 50% 50%, transparent 55%, #000 56%);
+  }
+  .pico:nth-child(6n+1){ background: var(--marigold); }
+  .pico:nth-child(6n+2){ background: var(--magenta); }
+  .pico:nth-child(6n+3){ background: var(--turquoise); }
+  .pico:nth-child(6n+4){ background: var(--cactus); }
+  .pico:nth-child(6n+5){ background: var(--cielo); }
+  .pico:nth-child(6n+6){ background: var(--marigold); }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    background: var(--ciruela);
+    padding: 6px 24px 40px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    left: 50%; top: 105%;
+    width: 220%;
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    background: conic-gradient(var(--marigold) 0 10deg, transparent 10deg 20deg);
+    opacity: 0.18;
+  }
+  .kicker {
+    position: relative;
+    display: inline-block;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--marigold);
+    margin-top: 18px;
+  }
+  h1.titulo {
+    position: relative;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: 2.5rem;
+    line-height: 1.05;
+    color: var(--papel);
+    margin: 10px 0 4px 0;
+    text-shadow: 3px 3px 0 var(--magenta);
+  }
+  .subtitulo {
+    position: relative;
+    font-style: italic;
+    font-weight: 700;
+    color: var(--crema);
+    font-size: 1.05rem;
+    opacity: 0.9;
+  }
+
+  /* ---------- CONTENIDO ---------- */
+  .contenido {
+    background: var(--papel);
+    padding: 26px 20px 10px 20px;
+  }
+
+  .seccion-titulo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 30px 0 12px 0;
+  }
+  .seccion-titulo:first-child { margin-top: 0; }
+  .seccion-titulo .emoji {
+    font-size: 1.4rem;
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .seccion-titulo h2 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.15rem;
+    color: var(--ciruela);
+  }
+
+  /* ---------- BOLETOS ---------- */
+  .boleto {
+    background: var(--crema);
+    border-radius: 14px;
+    position: relative;
+    display: flex;
+    box-shadow: 0 6px 0 rgba(64,27,51,0.08);
+    overflow: hidden;
+  }
+  .boleto .franja {
+    width: 16px;
+    flex-shrink: 0;
+    background-image: repeating-linear-gradient(
+      -45deg, rgba(255,255,255,0.55) 0 8px, transparent 8px 16px
+    );
+  }
+  .boleto .corte {
+    width: 0;
+    border-left: 2px dashed rgba(64,27,51,0.25);
+    position: relative;
+  }
+  .boleto .corte::before, .boleto .corte::after {
+    content: "";
+    position: absolute;
+    left: -9px;
+    width: 18px; height: 18px;
+    background: var(--papel);
+    border-radius: 50%;
+  }
+  .boleto .corte::before { top: -9px; }
+  .boleto .corte::after { bottom: -9px; }
+  .boleto .info {
+    padding: 18px 18px 18px 16px;
+    text-align: left;
+    flex: 1;
+  }
+  .boleto .info b { color: var(--ciruela); }
+  .boleto .info p { margin-top: 4px; line-height: 1.45; }
+  .boleto .destacado {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: var(--ciruela);
+    margin: 2px 0 4px 0;
+  }
+  .pendiente {
+    display: inline-block;
+    background: rgba(232,78,122,0.14);
+    color: var(--magenta);
+    font-weight: 800;
+    font-size: 0.78rem;
+    padding: 2px 10px;
+    border-radius: 999px;
+    margin-top: 4px;
+  }
+
+  .franja.c-marigold { background-color: var(--marigold); }
+  .franja.c-magenta  { background-color: var(--magenta); }
+  .franja.c-turquoise{ background-color: var(--turquoise); }
+  .franja.c-cactus   { background-color: var(--cactus); }
+  .franja.c-cielo    { background-color: var(--cielo); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    background: var(--ciruela);
+    color: var(--papel) !important;
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 10px 18px;
+    border-radius: 999px;
+    transition: transform .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn.turquoise { background: var(--turquoise); }
+  .btn.magenta { background: var(--magenta); }
+
+  /* ---------- GALERIA ---------- */
+  .galeria-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+  }
+  .marco {
+    aspect-ratio: 1;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: rgba(64,27,51,0.35);
+    border: 2px dashed rgba(64,27,51,0.22);
+    overflow: hidden;
+  }
+  .marco img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .marco:nth-child(4n+1){ background: rgba(245,166,35,0.15); }
+  .marco:nth-child(4n+2){ background: rgba(232,78,122,0.13); }
+  .marco:nth-child(4n+3){ background: rgba(31,166,160,0.15); }
+  .marco:nth-child(4n+4){ background: rgba(76,159,91,0.15); }
+  .galeria-caption {
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--ciruela-suave);
+    margin-top: 10px;
+    font-style: italic;
+  }
+
+  /* ---------- CONFETI DIVIDER ---------- */
+  .confeti-divider {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    padding: 34px 0 10px 0;
+  }
+  .confeti-divider span {
+    width: 9px; height: 9px;
+    border-radius: 2px;
+    transform: rotate(20deg);
+  }
+  .confeti-divider span:nth-child(1){ background: var(--marigold); }
+  .confeti-divider span:nth-child(2){ background: var(--magenta); transform: rotate(-15deg); border-radius: 50%;}
+  .confeti-divider span:nth-child(3){ background: var(--turquoise); }
+  .confeti-divider span:nth-child(4){ background: var(--cactus); transform: rotate(-25deg); border-radius: 50%;}
+  .confeti-divider span:nth-child(5){ background: var(--cielo); }
+
+  /* ---------- MENSAJE FINAL ---------- */
+  .final {
+    margin: 4px 20px 0 20px;
+    background: linear-gradient(135deg, var(--magenta), var(--marigold));
+    color: var(--papel);
+    padding: 26px 22px;
+    border-radius: 18px;
+    text-align: center;
+  }
+  .final h3 {
+    font-family: 'Baloo 2', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 8px;
+  }
+  .final p { line-height: 1.5; margin-top: 6px; }
+  .final .firma {
+    display: block;
+    margin-top: 14px;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    font-size: 1.05rem;
+  }
+
+  .pie-picado {
+    display: flex;
+    justify-content: center;
+    padding-top: 26px;
+  }
+  .pie-picado .pico { aspect-ratio: 5/4; clip-path: polygon(0 100%, 100% 100%, 50% 0); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .btn:hover { }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="banderin-fila">
+    <div class="pico"></div><div class="pico"></div><div class="pico"></div>
+    <div class="pico"></div><div class="pico"></div><div class="pico"></div>
+    <div class="pico"></div><div class="pico"></div>
+  </div>
+
+  <header class="hero">
+    <span class="kicker">✦ Familia Herrera ✦</span>
+    <h1 class="titulo">¡La Gran<br>Fiesta de Feria!</h1>
+    <p class="subtitulo">Reunión Familiar Herrera · 2026</p>
+  </header>
+
+  <main class="contenido">
+
+    <section>
+      <div class="seccion-titulo">
+        <div class="emoji" style="background:rgba(200,155,123,0.18);">📸</div>
+        <h2>Recuerdos e historia</h2>
+      </div>
+      <p style="margin-bottom:12px; color:var(--ciruela-suave);">Revive los mejores momentos de nuestras reuniones pasadas:</p>
+      <div class="galeria-grid">
+        <div class="marco"><img src="foto1.jpg" alt="Recuerdo familiar 1"></div>
+        <div class="marco"><img src="foto2.jpg" alt="Recuerdo familiar 2"></div>
+        <div class="marco"><img src="foto3.jpg" alt="Recuerdo familiar 3"></div>
+        <div class="marco"><img src="foto4.jpg" alt="Recuerdo familiar 4"></div>
+        <div class="marco"><img src="foto5.jpg" alt="Recuerdo familiar 5"></div>
+        <div class="marco"><img src="foto6.jpg" alt="Recuerdo familiar 6"></div>
+        <div class="marco"><img src="foto7.jpg" alt="Recuerdo familiar 7"></div>
+        <div class="marco"><img src="foto8.jpg" alt="Recuerdo familiar 8"></div>
+      </div>
+      <p class="galeria-caption">Nuestros mejores recuerdos juntos</p>
+    </section>
+
+    <div class="seccion-titulo">
+      <div class="emoji" style="background:rgba(245,166,35,0.2);">🗓️</div>
+      <h2>¿Cuándo?</h2>
+    </div>
+    <div class="boleto">
+      <div class="franja c-marigold"></div>
+      <div class="corte"></div>
+      <div class="info">
+        <p class="destacado">Sábado, 15 de agosto de 2026</p>
+        <p>¡Aparta la fecha en tu calendario!</p>
+      </div>
+    </div>
+
+    <div class="seccion-titulo">
+      <div class="emoji" style="background:rgba(76,159,91,0.2);">⛪</div>
+      <h2>Misa de Acción de Gracias</h2>
+    </div>
+    <div class="boleto">
+      <div class="franja c-cactus"></div>
+      <div class="corte"></div>
+      <div class="info">
+        <p><b>Lugar:</b> Parroquia de Nenthé</p>
+        <p><b>Horario:</b> <span class="pendiente">Pendiente por definir</span></p>
+        <a href="https://maps.app.goo.gl/KPkKHhnQSUvU17sg8?g_st=ipc" target="_blank" class="btn">📍 Ver ubicación</a>
+      </div>
+    </div>
+
+    <div class="seccion-titulo">
+      <div class="emoji" style="background:rgba(31,166,160,0.2);">🎪</div>
+      <h2>Fiesta y celebración</h2>
+    </div>
+    <div class="boleto">
+      <div class="franja c-turquoise"></div>
+      <div class="corte"></div>
+      <div class="info">
+        <p><b>Lugar:</b> Salón La Esperanza</p>
+        <p><b>Ubicación:</b> Aculco de Espinoza</p>
+        <a href="https://maps.app.goo.gl/QiS1AhNxBBURJrUs9?g_st=ipc" target="_blank" class="btn turquoise">🗺️ Ver ubicación del salón</a>
+      </div>
+    </div>
+
+    <div class="seccion-titulo">
+      <div class="emoji" style="background:rgba(232,78,122,0.18);">🎯</div>
+      <h2>Dinámica y vestuario</h2>
+    </div>
+    <div class="boleto">
+      <div class="franja c-magenta"></div>
+      <div class="corte"></div>
+      <div class="info">
+        <p>👗 <b>Código de vestimenta:</b> ropa casual, cómoda y fresca — estilo día de feria. ¡Trae tenis cómodos!</p>
+        <p style="margin-top:10px;">🏆 <b>Actividades:</b> ven con toda la disposición para participar en juegos de destreza, retos individuales y en equipo. ¡Habrá sorpresas!</p>
+      </div>
+    </div>
+
+    <div class="confeti-divider">
+      <span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="final">
+      <h3>❤️ ¡Tu presencia hace la fiesta!</h3>
+      <p>Querida familia: esta fiesta la hacemos entre todos para reír, jugar y seguir creando memorias juntos.</p>
+      <span class="firma">¡NOS VEMOS EN LA FIESTA HERRERA 2026!</span>
+    </div>
+
+  </main>
+
+  <div class="pie-picado">
+    <div class="pico" style="background:var(--cielo)"></div>
+    <div class="pico" style="background:var(--marigold)"></div>
+    <div class="pico" style="background:var(--magenta)"></div>
+    <div class="pico" style="background:var(--cactus)"></div>
+    <div class="pico" style="background:var(--turquoise)"></div>
+    <div class="pico" style="background:var(--cielo)"></div>
+    <div class="pico" style="background:var(--marigold)"></div>
+    <div class="pico" style="background:var(--magenta)"></div>
+  </div>
+
+</div>
+</body>
+</html>
