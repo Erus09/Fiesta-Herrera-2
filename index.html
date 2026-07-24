@@ -498,8 +498,11 @@
     }
   }
 
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
+  btn.addEventListener('click', () => {
+    // Si la música de fondo seguía sin poder reproducirse por el bloqueo
+    // del navegador, este clic también cuenta como la primera interacción
+    if (fondo.paused) { fondo.play().catch(() => {}); }
+
     if (audioBoton.paused) { audioBoton.play(); } else { audioBoton.pause(); }
   });
 
