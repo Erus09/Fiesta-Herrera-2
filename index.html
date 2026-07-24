@@ -310,6 +310,37 @@
   @media (prefers-reduced-motion: no-preference) {
     .btn:hover { }
   }
+
+  /* ---------- BOTÓN FLOTANTE DE AUDIO ---------- */
+  .btn-audio {
+    position: fixed;
+    bottom: 22px;
+    right: 22px;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--magenta), var(--marigold));
+    border: 3px solid var(--papel);
+    box-shadow: 0 6px 16px rgba(64,27,51,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 999;
+    transition: transform .2s ease;
+  }
+  .btn-audio:hover { transform: scale(1.08); }
+  .btn-audio.sonando {
+    animation: pulso 1.4s ease-in-out infinite;
+  }
+  @keyframes pulso {
+    0%, 100% { box-shadow: 0 6px 16px rgba(64,27,51,0.35), 0 0 0 0 rgba(232,78,122,0.5); }
+    50% { box-shadow: 0 6px 16px rgba(64,27,51,0.35), 0 0 0 12px rgba(232,78,122,0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-audio.sonando { animation: none; }
+  }
 </style>
 </head>
 <body>
@@ -426,5 +457,51 @@
   </div>
 
 </div>
+
+<!-- Botón flotante de música -->
+<button class="btn-audio" id="btnAudio" aria-label="Pausar música">🔊</button>
+<audio id="musicaFiesta" src="musica.mp3" loop autoplay></audio>
+
+<script>
+  const btn = document.getElementById('btnAudio');
+  const audio = document.getElementById('musicaFiesta');
+
+  function actualizarIcono() {
+    if (audio.paused) {
+      btn.textContent = '🔇';
+      btn.classList.remove('sonando');
+      btn.setAttribute('aria-label', 'Reproducir música');
+    } else {
+      btn.textContent = '🔊';
+      btn.classList.add('sonando');
+      btn.setAttribute('aria-label', 'Pausar música');
+    }
+  }
+
+  // Intento de reproducción automática al cargar la página
+  audio.play().catch(() => {
+    // El navegador bloqueó el autoplay: se activa en cuanto la persona
+    // interactúa por primera vez con la página (clic, toque o scroll)
+    const activarConPrimeraInteraccion = () => {
+      audio.play();
+      window.removeEventListener('click', activarConPrimeraInteraccion);
+      window.removeEventListener('touchstart', activarConPrimeraInteraccion);
+      window.removeEventListener('scroll', activarConPrimeraInteraccion);
+    };
+    window.addEventListener('click', activarConPrimeraInteraccion, { once: true });
+    window.addEventListener('touchstart', activarConPrimeraInteraccion, { once: true });
+    window.addEventListener('scroll', activarConPrimeraInteraccion, { once: true });
+  });
+
+  // El botón sigue funcionando como control manual de pausa/reproducción
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (audio.paused) { audio.play(); } else { audio.pause(); }
+  });
+
+  audio.addEventListener('play', actualizarIcono);
+  audio.addEventListener('pause', actualizarIcono);
+</script>
+
 </body>
 </html>
