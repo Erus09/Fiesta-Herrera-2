@@ -334,6 +334,10 @@
   .btn-audio.sonando {
     animation: pulso 1.4s ease-in-out infinite;
   }
+  .btn-audio.btn-fondo {
+    bottom: 90px;
+    background: linear-gradient(135deg, var(--turquoise), var(--cactus));
+  }
   @keyframes pulso {
     0%, 100% { box-shadow: 0 6px 16px rgba(64,27,51,0.35), 0 0 0 0 rgba(232,78,122,0.5); }
     50% { box-shadow: 0 6px 16px rgba(64,27,51,0.35), 0 0 0 12px rgba(232,78,122,0); }
@@ -461,14 +465,36 @@
 <!-- Música de fondo: pon aquí el nombre de tu archivo de fondo -->
 <audio id="musicaFondo" src="musica2.mp3" loop autoplay></audio>
 
+<!-- Botón flotante: controla la música de fondo (musica2.mp3) -->
+<button class="btn-audio btn-fondo" id="btnFondo" aria-label="Pausar música de fondo">🎵</button>
+
 <!-- Botón flotante: reproduce un audio aparte al presionarlo -->
 <button class="btn-audio" id="btnAudio" aria-label="Reproducir audio">🔇</button>
 <audio id="audioBoton" src="Audio.mp3"></audio>
 
 <script>
   const fondo = document.getElementById('musicaFondo');
+  const btnFondo = document.getElementById('btnFondo');
   const btn = document.getElementById('btnAudio');
   const audioBoton = document.getElementById('audioBoton');
+
+  // --- Botón de nota musical: controla musica2.mp3 ---
+  function actualizarIconoFondo() {
+    if (fondo.paused) {
+      btnFondo.textContent = '🎵';
+      btnFondo.classList.remove('sonando');
+      btnFondo.setAttribute('aria-label', 'Reproducir música de fondo');
+    } else {
+      btnFondo.textContent = '🎶';
+      btnFondo.classList.add('sonando');
+      btnFondo.setAttribute('aria-label', 'Pausar música de fondo');
+    }
+  }
+  btnFondo.addEventListener('click', () => {
+    if (fondo.paused) { fondo.play().catch(() => {}); } else { fondo.pause(); }
+  });
+  fondo.addEventListener('play', actualizarIconoFondo);
+  fondo.addEventListener('pause', actualizarIconoFondo);
 
   // --- Música de fondo (musica2.mp3): intenta sonar sola al cargar ---
   fondo.play().catch(() => {
