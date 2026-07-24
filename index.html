@@ -458,49 +458,54 @@
 
 </div>
 
-<!-- Botón flotante de música -->
-<button class="btn-audio" id="btnAudio" aria-label="Pausar música">🔊</button>
-<audio id="musicaFiesta" src="Audio.mp3" loop autoplay></audio>
+<!-- Música de fondo: pon aquí el nombre de tu archivo de fondo -->
+<audio id="musicaFondo" src="musica2.mp3" loop autoplay></audio>
+
+<!-- Botón flotante: reproduce un audio aparte al presionarlo -->
+<button class="btn-audio" id="btnAudio" aria-label="Reproducir audio">🔇</button>
+<audio id="audioBoton" src="Audio.mp3"></audio>
 
 <script>
+  const fondo = document.getElementById('musicaFondo');
   const btn = document.getElementById('btnAudio');
-  const audio = document.getElementById('musicaFiesta');
+  const audioBoton = document.getElementById('audioBoton');
 
-  function actualizarIcono() {
-    if (audio.paused) {
+  // --- Música de fondo (musica2.mp3): intenta sonar sola al cargar ---
+  fondo.play().catch(() => {
+    // Si el navegador bloquea el autoplay, arranca con la primera
+    // interacción de la persona (clic, toque o scroll)
+    const activarFondo = () => {
+      fondo.play();
+      window.removeEventListener('click', activarFondo);
+      window.removeEventListener('touchstart', activarFondo);
+      window.removeEventListener('scroll', activarFondo);
+    };
+    window.addEventListener('click', activarFondo, { once: true });
+    window.addEventListener('touchstart', activarFondo, { once: true });
+    window.addEventListener('scroll', activarFondo, { once: true });
+  });
+
+  // --- Botón flotante (Audio.mp3): se reproduce solo al presionar ---
+  function actualizarIconoBoton() {
+    if (audioBoton.paused) {
       btn.textContent = '🔇';
       btn.classList.remove('sonando');
-      btn.setAttribute('aria-label', 'Reproducir música');
+      btn.setAttribute('aria-label', 'Reproducir audio');
     } else {
       btn.textContent = '🔊';
       btn.classList.add('sonando');
-      btn.setAttribute('aria-label', 'Pausar música');
+      btn.setAttribute('aria-label', 'Pausar audio');
     }
   }
 
-  // Intento de reproducción automática al cargar la página
-  audio.play().catch(() => {
-    // El navegador bloqueó el autoplay: se activa en cuanto la persona
-    // interactúa por primera vez con la página (clic, toque o scroll)
-    const activarConPrimeraInteraccion = () => {
-      audio.play();
-      window.removeEventListener('click', activarConPrimeraInteraccion);
-      window.removeEventListener('touchstart', activarConPrimeraInteraccion);
-      window.removeEventListener('scroll', activarConPrimeraInteraccion);
-    };
-    window.addEventListener('click', activarConPrimeraInteraccion, { once: true });
-    window.addEventListener('touchstart', activarConPrimeraInteraccion, { once: true });
-    window.addEventListener('scroll', activarConPrimeraInteraccion, { once: true });
-  });
-
-  // El botón sigue funcionando como control manual de pausa/reproducción
   btn.addEventListener('click', (e) => {
     e.stopPropagation();
-    if (audio.paused) { audio.play(); } else { audio.pause(); }
+    if (audioBoton.paused) { audioBoton.play(); } else { audioBoton.pause(); }
   });
 
-  audio.addEventListener('play', actualizarIcono);
-  audio.addEventListener('pause', actualizarIcono);
+  audioBoton.addEventListener('play', actualizarIconoBoton);
+  audioBoton.addEventListener('pause', actualizarIconoBoton);
+  audioBoton.addEventListener('ended', actualizarIconoBoton);
 </script>
 
 </body>
